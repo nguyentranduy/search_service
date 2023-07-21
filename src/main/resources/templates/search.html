@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Search-App</title>
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery.min.js"></script>
+</head>
+<body>
+	<br />
+	<div class="container">
+		<h3>
+			Welcome, <span th:text="${session.CURRENT_USER.username}"></span>
+		</h3>
+		<br />
+		<h3>Search product</h3>
+		<br />
+		<div class="input-group">
+			<form method="POST" th:object="${searchText}" th:action="@{/app/search}">
+				<input type="text" class="form-control rounded"
+					placeholder="Search" aria-label="Search" id="searchText" name="searchText"
+					aria-describedby="search-addon" />
+				<button type="submit" class="btn btn-outline-primary">Search</button>
+			</form>
+		</div>
+		<br /> <a th:href="@{/app/logout}">Logout</a>
+		<hr />
+		<br />
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Code</th>
+					<th scope="col">Name</th>
+					<th scope="col">Price</th>
+				</tr>
+			</thead>
+			<tbody id="productView">
+				<tr th:each="product, i : ${products}">
+					<th scope="row" th:text="${i.index + 1}"></th>
+					<td th:text="${product.code}">Mark</td>
+					<td th:text="${product.name}">Mark</td>
+					<td th:text="${product.price}">Mark</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+<script>
+	function search() {
+		var searchText = $("#searchBtn").val();
+		window.location.href = '/app/search';
+	}
+</script>
+</html>
